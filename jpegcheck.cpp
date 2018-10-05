@@ -1,11 +1,8 @@
-#include<stdio.h>
-// #include<iostream.h>
-#include<jpeglib.h>
-#include <typeinfo>
+#include"jpegcheck.h"
 
-
-unsigned char** read_jpeg(char *filename)
+img read_jpeg(char *filename)
 {
+	struct img i1;
 	struct jpeg_decompress_struct cinfo;
 	FILE * infile;
 
@@ -26,14 +23,6 @@ unsigned char** read_jpeg(char *filename)
 	int width = static_cast<int>(cinfo.output_width);
 
 	int height = static_cast<int>(cinfo.output_height);
-
-	// printf("%s\n",typeid(cinfo.colormap).name());
-
-	// printf("Width: %d Height: %d\n", width, height);
-
-	// PixelBuffer *image_buffer = new PixelBuffer(width, height, ColorData());
-
-	// printf("%d\n", cinfo.output_components);
 
 	buffer = (*cinfo.mem->alloc_sarray)
 	((j_common_ptr) &cinfo, JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
@@ -72,14 +61,21 @@ unsigned char** read_jpeg(char *filename)
 
 	temp -= iter*row_stride;
 	delete[] temp;
-
-	return image;
+	i1.width = width;
+	i1.height = height;
+	i1.image = image;
+	return i1;
 }
 
-int main()
+/*int main()
 {
-	unsigned char** image = (unsigned char**)read_jpeg("green.jpg");
-	printf("%d\t%d\t%d\n%d\t%d\t%d\n%d\t%d\t%d\n", image[0][0], 
-		image[0][1], image[0][2], image[1][0], image[1][1], 
-		image[1][2], image[2][0], image[2][1], image[2][2]);
-}
+	struct img i1;
+	char img_name[] = "1.jpg";
+	i1 = read_jpeg(img_name);
+	unsigned char **image = i1.image;
+	printf("%d\t%d\t%d\n%d\t%d\t%d\n%d\t%d\t%d\n",
+		image[0][0], image[0][1], image[0][2],
+		image[1][0], image[1][1], image[1][2],
+		image[2][0], image[2][1], image[2][2]);
+	printf("Width = %d , Height = %d\n",i1.width,i1.height);
+}*/
