@@ -10,6 +10,8 @@ class BGR
     unsigned char **B;
     unsigned char **G;
     unsigned char **R;
+
+	
     BGR(char *filename)
     {
     	struct img i1 = read_jpeg(filename);
