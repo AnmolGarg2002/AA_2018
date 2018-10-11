@@ -1,2 +1,2 @@
-main:	BGR.cpp	jpegcheck.cpp
-	g++ BGR.cpp jpegcheck.cpp -ljpeg -o main
+main:	image.hpp BGR.hpp christy_test.cpp
+	g++ christy_test.cpp -ljpeg -o main

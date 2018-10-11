@@ -4,6 +4,9 @@
 #include <typeinfo>
 #include <string.h>
 #include <unistd.h>
+#include <bits/stdc++.h>
+
+using namespace std;
 /* High level class Image */
 
 class Image
@@ -23,6 +26,44 @@ public:
 		filename = new char[size];
 		strcpy(filename, name);
 		read_jpeg();
+		
+	}
+
+
+	Image(Image &src){
+		width = src.width;
+		height = src.height;
+		components = src.components;
+		filename = src.filename;
+
+		int size = width*height*components;
+		image = new unsigned char[size];
+		
+		copy(src.image,src.image+size, image);
+		
+	}
+
+	Image(int wid , int hei, int component, unsigned char *img){
+		width = wid;
+		height = hei;
+		components = component;
+		filename = "";
+
+		int size = width*height*components;
+		image = new unsigned char[size];
+		
+		copy(img,img+size, image);
+		
+	}
+
+	Image(int wid , int hei, int component){
+
+		width = wid;
+		height = hei;
+		components = component;
+		filename = "";
+		image = new unsigned char[width*height*components]();
+
 	}
 	
 	unsigned char **read_jpeg() //puts jpeg filename in image
@@ -131,6 +172,7 @@ public:
 
 	void display(const char *savename) //function to display image after saving at path savename
 	{
+
 		write_jpeg(savename); //saves jpeg first
 		/* eog <savename> & - displays image on linux machines in background
 		so that execution can continue */
@@ -146,8 +188,8 @@ public:
 
 	~Image()
 	{
-		delete[] image;
-		delete[] filename;
+		// delete[] image;
+		// delete[] filename;
 	}
 
 };
