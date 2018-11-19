@@ -8,7 +8,7 @@
 #include <bits/stdc++.h>
 #include <limits>
 #include <cfloat>
-#include "../image.hpp"
+#include "image.hpp"
 
 //Function to check if a number is a power of 2.
 //Returns 1 if it is.
