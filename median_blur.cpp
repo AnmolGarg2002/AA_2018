@@ -1,7 +1,14 @@
 #include "BGR.hpp"
 #include <stdlib.h>
-#include <bits/stdc++.h> 
+#include <bits/stdc++.h>
 using namespace std; 
+
+int ispow2(int num)
+{
+	if((num & (num-1)) == 0)
+		return 1;
+	return 0;
+}
 
 void _medianfilter(unsigned char* image, unsigned char* result, int N, int M,int ker)
 {
@@ -24,14 +31,12 @@ void _medianfilter(unsigned char* image, unsigned char* result, int N, int M,int
    }
 }
 
-void median_blur(Image &source, double radius ,char *savename) {
+void median_blur(Image &source, int ker,char *savename) {
     int width = source.width;
     int height = source.height;
     
     BGR *src = new BGR(source);
     BGR *tar = new BGR(source.width, source.height, source.components);
-    
-    int ker=3;//always odd
     
     unsigned char *R_src = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
     unsigned char *G_src = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
@@ -74,8 +79,10 @@ void median_blur(Image &source, double radius ,char *savename) {
     tar->save(savename);
 }
 
-int main(){
-    Image im1("./test_images/2.jpg");
-    median_blur(im1, 3 , "./test_images/median.jpg"); 
+int main(int argc,char *argv[]){
+	const char *str = argv[1]; // image to work
+	int k = atoi (argv[2]); // kernel size for median blur (odd no only)
+    Image im1(str);
+    median_blur(im1, k , "./test_images/median_only.jpg");
     return 0;
 }
