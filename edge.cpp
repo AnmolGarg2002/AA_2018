@@ -436,7 +436,7 @@ int main(int argc,char *argv[]){
     Image im2 = median_blur(im1,k);
     double val = (double)im2.width;
     double val2 = (double)im2.height;
-    im2.write_jpeg("./test_images/median.jpg", GRAYSCALE);
+    // im2.write_jpeg("./test_images/median.jpg", GRAYSCALE);
     // Image orig_img("./test_images/median.jpg");
     double *reals = NULL;
 	double *imags = NULL;
